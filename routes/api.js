@@ -8,7 +8,7 @@ var zahirr = db.get("zahirr");
 	console.log('')
 }
 
-var creator = "Arjn"
+var creator = "@arjn.me"
 
 const sleep = async (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -66,7 +66,9 @@ var {
     playstore,
     fbdown,
     twtdl,
-    shoope
+    shoope,
+    textpro,
+    photooxy
 } = require('./../lib');
 
 const game = require('./../lib/game')
@@ -767,271 +769,6 @@ router.get('/kuis/family100', async (req, res, next) => {
         .catch(err => res.json(err))
 })
 
-router.get('/textmaker', async (req, res, next) => {
-        var theme = req.query.theme,
-             text = req.query.text,
-             text2 = req.query.text2,
-             text3 = req.query.text3,
-             apikeyInput = req.query.apikey;
-        
-	if(!apikeyInput) return res.sendFile(__path + '/views/404.html')
-	if(apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
-        if (!theme) return res.json(loghandler.nottheme)
-        if (theme != 'glitch' && theme != 'google-suggestion') return res.json(loghandler.notheme)
-        if (!text) return res.json(loghandler.nottext)
-
-        if (theme == 'glitch') {
-        	if (!text2) return res.json(loghandler.nottext2)
-            try {
-            request.post({
-                url: "https://photooxy.com/logo-and-text-effects/make-tik-tok-text-effect-375.html",
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `text_1=${text}&text_2=${text2}&login=OK`,
-                }, (e,r,b) => {
-                    if (!e) {
-                        $ = cheerio.load(b)
-                        $(".thumbnail").find("img").each(function() {
-                            h = $(this).attr("src")
-                            var result = "https://photooxy.com/"+h
-                            fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=93f5c8966cfaf3ca19051ee9f85c14f3&image=${result}&name=${randomTextNumber}`))
-                                .then(response => response.json())
-                                .then(data => {
-                                    var urlnya = data.data.url,
-                                        delete_url = data.data.delete_url;
-                                        res.json({
-                                            creator: "Arjn",
-                                            code: 200,
-                                            status: true,
-                                            result:{
-                                                url:urlnya,
-                                                delete_url: delete_url,
-                                                info: 'url akan hilang setelah 2 menit'
-                                            }
-                                        })
-                                })
-                        })
-                    }
-                })
-                } catch (e) {
-                	console.log(e);
-                res.json(loghandler.error)
-                }
-        } else if (theme == 'google-suggestion') {
-        	if (!text2) return res.json(loghandler.nottext2)
-        if (!text3) return res.json(loghandler.nottext3)
-            request.post({
-                url: "https://photooxy.com/other-design/make-google-suggestion-photos-238.html",
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `text_1=${text}&text_2=${text2}&text_3=${text3}&login=OK`,
-                }, (e,r,b) => {
-                    if (!e) {
-                        $ = cheerio.load(b)
-                        $(".thumbnail").find("img").each(function() {
-                            h = $(this).attr("src")
-                            var result = "https://photooxy.com/"+h
-                            fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomTextNumber}`))
-                                .then(response => response.json())
-                                .then(data => {
-                                    var urlnya = data.data.url,
-                                        delete_url = data.data.delete_url;
-                                        res.json({
-                                            creator: "Arjn",
-                                            code: 200,
-                                            status: true,
-                                            result: {
-                                                url:urlnya,
-                                                delete_url: delete_url,
-                                                info: 'url akan hilang setelah 2 menit'
-                                            }
-                                        })
-                                })
-                        })
-                    }
-                }) 
-        } else {
-            res.json(loghandler.error)
-        }
-})
-
-router.get('/textmaker/game', async (req, res, next) => {
-        var theme = req.query.theme,
-             text = req.query.text,
-             text2 = req.query.text2,
-             text3 = req.query.text3,
-             apikeyInput = req.query.apikey;
-        
-	if(!apikeyInput) return res.sendFile(__path + '/views/404.html')
-	if(apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
-        if (!theme) return res.json(loghandler.nottheme)
-        if (theme != 'pubg' && theme != 'battlefield') return res.json(loghandler.notheme)
-        if (!text) return res.json(loghandler.nottext)
-
-        if (theme == 'pubg') {
-        	if (!text2) return res.json(loghandler.nottext2)
-            try {
-            request.post({
-                url: "https://photooxy.com/battlegrounds/make-wallpaper-battlegrounds-logo-text-146.html",
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `text_1=${text}&text_2=${text2}&login=OK`,
-                }, (e,r,b) => {
-                    if (!e) {
-                        $ = cheerio.load(b)
-                        $(".thumbnail").find("img").each(function() {
-                            h = $(this).attr("src")
-                            var result = "https://photooxy.com/"+h
-                            fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomTextNumber}`))
-                                .then(response => response.json())
-                                .then(data => {
-                                    var urlnya = data.data.url,
-                                        delete_url = data.data.delete_url;
-                                        res.json({
-                                            creator: "Arjn",
-                                            code: 200,
-                                            status: true,
-                                            result:{
-                                                url:urlnya,
-                                                delete_url: delete_url,
-                                                info: 'url akan hilang setelah 2 menit'
-                                            }
-                                        })
-                                })
-                        })
-                    }
-                })
-                } catch (e) {
-                	console.log(e);
-                res.json(loghandler.error)
-                }
-        } else if (theme == 'battlefield') {
-        	if (!text2) return res.json(loghandler.nottext2)
-            request.post({
-                url: "https://photooxy.com/fps-game-effect/create-battlefield-4-rising-effect-152.html",
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `text_1=${text}&text_2=${text2}&login=OK`,
-                }, (e,r,b) => {
-                    if (!e) {
-                        $ = cheerio.load(b)
-                        $(".thumbnail").find("img").each(function() {
-                            h = $(this).attr("src")
-                            var result = "https://photooxy.com/"+h
-                            fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomTextNumber}`))
-                                .then(response => response.json())
-                                .then(data => {
-                                    var urlnya = data.data.url,
-                                        delete_url = data.data.delete_url;
-                                        res.json({
-                                            creator: "Arjn",
-                                            code: 200,
-                                            status: true,
-                                            result:{
-                                                url:urlnya,
-                                                delete_url: delete_url,
-                                                info: 'url akan hilang setelah 2 menit'
-                                            }
-                                        })
-                                })
-                        })
-                    }
-                }) 
-        } else {
-            res.json(loghandler.error)
-        }
-})
-
-router.get('/textmaker/senja', async (req, res, next) => {
-        var theme = req.query.theme,
-             text = req.query.text,
-             text2 = req.query.text2,
-             text3 = req.query.text3,
-             apikeyInput = req.query.apikey;
-        
-	if(!apikeyInput) return res.sendFile(__path + '/views/404.html')
-	if(apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
-        if (!theme) return res.json(loghandler.nottheme)
-        if (theme != 'coffee-cup' && theme != 'coffee-cup2') return res.json(loghandler.notheme)
-        if (!text) return res.json(loghandler.nottext)
-
-        if (theme == 'coffee-cup') {
-            try {
-            request.post({
-                url: "https://photooxy.com/logo-and-text-effects/put-any-text-in-to-coffee-cup-371.html",
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `text_1=${text}&login=OK`,
-                }, (e,r,b) => {
-                    if (!e) {
-                        $ = cheerio.load(b)
-                        $(".thumbnail").find("img").each(function() {
-                            h = $(this).attr("src")
-                            var result = "https://photooxy.com/"+h
-                            fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomTextNumber}`))
-                                .then(response => response.json())
-                                .then(data => {
-                                    var urlnya = data.data.url,
-                                        delete_url = data.data.delete_url;
-                                        res.json({
-                                            creator: "Arjn",
-                                            code: 200,
-                                            status: true,
-                                            result:{
-                                                url:urlnya,
-                                                delete_url: delete_url,
-                                                info: 'url akan hilang setelah 2 menit'
-                                            }
-                                        })
-                                })
-                        })
-                    }
-                })
-                } catch (e) {
-                	console.log(e);
-                res.json(loghandler.error)
-                }
-        } else if (theme == 'coffee-cup2') {
-            request.post({
-                url: "https://photooxy.com/logo-and-text-effects/put-your-text-on-a-coffee-cup--174.html",
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `text_1=${text}&login=OK`,
-                }, (e,r,b) => {
-                    if (!e) {
-                        $ = cheerio.load(b)
-                        $(".thumbnail").find("img").each(function() {
-                            h = $(this).attr("src")
-                            var result = "https://photooxy.com/"+h
-                            fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomTextNumber}`))
-                                .then(response => response.json())
-                                .then(data => {
-                                    var urlnya = data.data.url,
-                                        delete_url = data.data.delete_url;
-                                        res.json({
-                                            creator: "Arjn",
-                                            code: 200,
-                                            status: true,
-                                            result:{
-                                                url:urlnya,
-                                                delete_url: delete_url,
-                                                info: 'url akan hilang setelah 2 menit'
-                                            }
-                                        })
-                                })
-                        })
-                    }
-                }) 
-        } else {
-            res.json(loghandler.error)
-        }
-})
 
 router.get('/kisahnabi', async (req, res, next) => {
 	var nabi = req.query.nabi,
@@ -1215,10 +952,10 @@ router.get('/pinterest', async (req, res, next) => {
 
 router.get('/chord', async (req, res, next) => {
     var query = req.query.query
-    apikeyInput = req.query.apikey
-    if (!apikeyInput) return res.sendFile(__path + '/views/404.html')
-    if (apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
-    if (!query) return res.json('Masukan parameter query!')
+    // apikeyInput = req.query.apikey
+    // if (!apikeyInput) return res.sendFile(__path + '/views/404.html')
+    // if (apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
+    if (!query) return res.json({ creator: '@arjn.me', status: false, message: '[!] Masukkan paramater query'})
     chordRes(query)
         .then(result => {
             res.json(result)
@@ -1300,9 +1037,9 @@ router.get('/ytsearch', async (req, res, next) => {
 
 router.get('/dl/ytmp3', async (req, res, next) => {
     var url = req.query.url
-    apikeyInput = req.query.apikey
-    if (!apikeyInput) return res.sendFile(__path + '/views/404.html')
-    if (apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
+    // apikeyInput = req.query.apikey
+    // if (!apikeyInput) return res.sendFile(__path + '/views/404.html')
+    // if (apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
     ytmp3(url)
         .then(result => {
             res.json(result)
@@ -1985,9 +1722,9 @@ router.get('/wallpaper/pegunungan', async (req, res, next) => {
 })
 
 router.get('/news', async (req, res, next) => {
-    var apikeyInput = req.query.apikey
-    if (!apikeyInput) return res.sendFile(__path + '/views/404.html')
-    if (apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
+    // var apikeyInput = req.query.apikey
+    // if (!apikeyInput) return res.sendFile(__path + '/views/404.html')
+    // if (apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
     newsRes()
         .then(result => {
             res.json(result)
@@ -2000,10 +1737,10 @@ router.get('/news', async (req, res, next) => {
 
 router.get('/wikipedia', async (req, res, next) => {
     var search = req.query.search
-    apikeyInput = req.query.apikey
-    if (!apikeyInput) return res.sendFile(__path + '/views/404.html')
-    if (apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
-    if (!search) return res.json('Masukan parameter search!')
+    // apikeyInput = req.query.apikey
+    // if (!apikeyInput) return res.sendFile(__path + '/views/404.html')
+    // if (apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
+    if (!search) return res.json({ creator: '@arjn.me', status: false, message: '[!] Masukan parameter search'})
     wikiRes(search)
         .then(result => {
             res.json(result)
@@ -2187,13 +1924,12 @@ router.get('/random/asmaulhusna', async (req, res, next) => {
 
 
 router.get('/kbbi', async (req, res, next) => {
-    var query = req.query.query,
-    apikeyInput = req.query.apikey
+    var query = req.query.query
+    // apikeyInput = req.query.apikey
             
-	if(!apikeyInput) return res.sendFile(__path + '/views/404.html')
-	if(apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
-    if(!query) return res.json("Masukan parameter query")
-
+	// if(!apikeyInput) return res.sendFile(__path + '/views/404.html')
+	// if(apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
+    if(!query) return res.json({ creator: '@arjn.me', status: false, message: '[!] Masukkan parameter query'})
     kbbi(query)
         .then(result => {
             res.json(result)
@@ -2461,5 +2197,488 @@ router.get('/kuis/tekateki', async (req, res, next) => {
         })
 })
 
+router.get('/textpro/pencil', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/create-a-sketch-text-effect-online-1044.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/textpro/glitch', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/create-impressive-glitch-text-effects-online-1027.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/textpro/blackpink', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/create-blackpink-logo-style-online-1001.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/textpro/berry', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/create-berry-text-effect-online-free-1033.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/textpro/neon', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/neon-light-text-effect-online-882.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+
+router.get('/textpro/logobear', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/online-black-and-white-bear-mascot-logo-creation-1012.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/textpro/3dchristmas', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/3d-christmas-text-effect-by-name-1055.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/textpro/thunder', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/online-thunder-text-effect-generator-1031.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/textpro/3dboxtext', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/3d-box-text-effect-online-880.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/textpro/glitch2', async (req, res, next) => {
+	var text1 = req.query.text
+	var text2 = req.query.text2
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	if (!text2 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text2"}) 
+	textpro("https://textpro.me/create-a-glitch-text-effect-online-free-1026.html", [text1,text2])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/textpro/glitchtiktok', async (req, res, next) => {
+	var text1 = req.query.text
+	var text2 = req.query.text2
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	if (!text2 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text2"}) 
+	textpro("https://textpro.me/create-glitch-text-effect-style-tik-tok-983.html", [text1,text2])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/textpro/video-game-classic', async (req, res, next) => {
+	var text1 = req.query.text
+	var text2 = req.query.text2
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	if (!text2 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text2"}) 
+	textpro("https://textpro.me/video-game-classic-8-bit-text-effect-1037.html", [text1,text2])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/textpro/marvel-studios', async (req, res, next) => {
+	var text1 = req.query.text
+	var text2 = req.query.text2
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	if (!text2 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text2"}) 
+	textpro("https://textpro.me/create-logo-style-marvel-studios-online-971.html", [text1,text2])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/textpro/ninja-logo', async (req, res, next) => {
+	var text1 = req.query.text
+	var text2 = req.query.text2
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	if (!text2 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text2"}) 
+	textpro("https://textpro.me/create-ninja-logo-online-935.html", [text1,text2])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/textpro/green-horror', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/create-green-horror-style-text-effect-online-1036.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/textpro/magma', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/create-a-magma-hot-text-effect-online-1030.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/textpro/3d-neon-light', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/create-3d-neon-light-text-effect-online-1028.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/textpro/3d-orange-juice', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/create-a-3d-orange-juice-text-effect-online-1084.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/textpro/chocolate-cake', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/chocolate-cake-text-effect-890.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/textpro/strawberry', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	textpro("https://textpro.me/strawberry-text-effect-online-889.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/photooxy/flaming', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	photooxy("https://photooxy.com/logo-and-text-effects/realistic-flaming-text-effect-online-197.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/photooxy/shadow-sky', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	photooxy("https://photooxy.com/logo-and-text-effects/shadow-text-effect-in-the-sky-394.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/photooxy/metallic', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	photooxy("https://photooxy.com/other-design/create-metallic-text-glow-online-188.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/photooxy/naruto', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	photooxy("https://photooxy.com/manga-and-anime/make-naruto-banner-online-free-378.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/photooxy/pubg', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	var text2 = req.query.text2
+	if (!text2 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text2"})  
+	photooxy("https://photooxy.com/battlegrounds/make-wallpaper-battlegrounds-logo-text-146.html", [text1,text2])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/photooxy/under-grass', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	photooxy("https://photooxy.com/logo-and-text-effects/make-quotes-under-grass-376.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/photooxy/harry-potter', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	photooxy("https://photooxy.com/logo-and-text-effects/create-harry-potter-text-on-horror-background-178.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/photooxy/flower-typography', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	photooxy("https://photooxy.com/art-effects/flower-typography-text-effect-164.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/photooxy/picture-of-love', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	photooxy("https://photooxy.com/logo-and-text-effects/create-a-picture-of-love-message-377.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/photooxy/coffee-cup', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	photooxy("https://photooxy.com/logo-and-text-effects/put-any-text-in-to-coffee-cup-371.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/photooxy/butterfly', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	photooxy("https://photooxy.com/logo-and-text-effects/butterfly-text-with-reflection-effect-183.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/photooxy/night-sky', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	photooxy("https://photooxy.com/logo-and-text-effects/write-stars-text-on-the-night-sky-200.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/photooxy/carved-wood', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	photooxy("https://photooxy.com/logo-and-text-effects/carved-wood-effect-online-171.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+
+router.get('/photooxy/illuminated-metallic', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	photooxy("https://photooxy.com/logo-and-text-effects/illuminated-metallic-effect-177.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
+
+router.get('/photooxy/sweet-candy', async (req, res, next) => {
+	var text1 = req.query.text
+	if (!text1 ) return res.json({ status : false, creator : `${creator}`, message : "[!] masukan parameter text"})   
+	photooxy("https://photooxy.com/logo-and-text-effects/sweet-andy-text-online-168.html", [text1])
+.then((data) =>{ 
+	res.set({'Content-Type': 'image/png'})
+	res.send(data)
+	})
+.catch((err) =>{
+ res.json(loghandler.error)
+})
+})
 
 module.exports = router
