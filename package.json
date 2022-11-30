@@ -28,7 +28,7 @@
     "base32": "0.0.6",
     "bitly": "^7.1.2",
     "canvas": "^2.10.2",
-    "canvas-gif": "^1.0.3",
+    "canvas-gif": "github:AlipBot/canvas-gif-attp",
     "chalk": "^4.1.0",
     "cheerio": "^1.0.0-rc.6",
     "cookie": "^0.5.0",
