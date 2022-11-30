@@ -1,5 +1,8 @@
 __path = process.cwd()
 
+const Canvas = require('canvas')
+const canvasGif = require('canvas-gif')
+
 var express = require('express');
 var db = require(__path + '/database/db');
 try {
@@ -1868,6 +1871,61 @@ router.get('/photooxy/sweet-candy', async (req, res, next) => {
 .catch((err) =>{
  res.json(loghandler.error)
 })
+})
+
+router.get('/maker/attp', async (req, res, next) => {
+    var text = req.query.text
+    if (!text) return res.json({ creator: creator, status: false, message: '[!] Masukkan parameter text!' })
+
+    const file = "./media/text2img/attp.gif"
+
+    let font = 90
+
+    if (text.length > 12) { font = 68 }
+    if (text.length > 15) { font = 58 }
+    if (text.length > 18) { font = 55 }
+    if (text.length > 19) { font = 50 }
+    if (text.length > 22) { font = 48 }
+    if (text.length > 24) { font = 38 }
+    if (text.length > 27) { font = 35 }
+    if (text.length > 30) { font = 30 }
+    if (text.length > 35) { font = 26 }
+    if (text.length > 39) { font = 25 }
+    if (text.length > 40) { font = 20 }
+    if (text.length > 49) { font = 10 }
+
+    Canvas.registerFont('./media/text2img/SF-Pro.ttf', { family: 'SF-Pro' })
+    await canvasGif(file, (ctx) => {
+        let warna = ["#ff0000","#ffe100","#33ff00","#00ffcc","#0033ff","#9500ff","#ff00ff"]
+        let random = warna[Math.floor(Math.random() * warna.length)]
+
+        function drawStroked(text, x, y) {
+            ctx.lineWidth = 5
+            ctx.font = `${font}px SF-Pro`
+            ctx.fillStyle = random
+            ctx.strokeStyle = 'black'
+            ctx.textAlign = 'center'
+            ctx.strokeText(text, x, y)
+            ctx.fillText(text, x, y)
+        }
+        drawStroked(text, 290, 300)
+    },
+    {
+        coalesce: false, // whether the gif should be coalesced first (requires graphicsmagick), default: false
+		delay: 0, // the delay between each frame in ms, default: 0
+		repeat: 0, // how many times the GIF should repeat, default: 0 (runs forever)
+		algorithm: 'octree', // the algorithm the encoder should use, default: 'neuquant',
+		optimiser: false, // whether the encoder should use the in-built optimiser, default: false,
+		fps: 7, // the amount of frames to render per second, default: 60
+		quality: 100, // the quality of the gif, a value between 1 and 100, default: 100
+    })
+    .then((result) => {
+        res.set({ 'Content-Type': 'gif' })
+        res.send(result)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
 })
 
 module.exports = router
