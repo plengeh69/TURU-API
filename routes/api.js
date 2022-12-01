@@ -71,7 +71,9 @@ var {
     twtdl,
     shoope,
     textpro,
-    photooxy
+    photooxy,
+    scdl,
+    scsearch
 } = require('./../lib');
 
 const game = require('./../lib/game')
@@ -1871,6 +1873,31 @@ router.get('/photooxy/sweet-candy', async (req, res, next) => {
 .catch((err) =>{
  res.json(loghandler.error)
 })
+})
+
+router.get('/dl/soundcloud', async (req, res, next) => {
+    var url = req.query.url
+    apikeyInput = req.query.apikey
+    if (!apikeyInput) return res.sendFile(__path + '/views/404.html')
+    if (apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
+
+    scdl(url)
+        .then((result) => {
+            res.json(result)
+        })
+        .catch((err) => {
+            res.json(err)
+        })
+})
+
+router.get('/search/soundcloud', async (req, res, next) => {
+    var query = req.query.query
+    apikeyInput = req.query.apikey
+    if (!apikeyInput) return res.sendFile(__path + '/views/404.html')
+    if (apikeyInput != 'youreyes') return res.sendFile(__path + '/views/invalid.html')
+    scsearch(query)
+        .then((result) => res.json(result))
+        .catch((err) => res.json(err))
 })
 
 router.get('/maker/attp', async (req, res, next) => {
